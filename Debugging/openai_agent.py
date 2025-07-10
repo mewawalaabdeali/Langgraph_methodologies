@@ -49,11 +49,13 @@ def tool_graph():
             return END
         
     graph_workflow = StateGraph(State)
+
     graph_workflow.add_node("agent", call_model)
     graph_workflow.add_node("tools", tool_node)
     graph_workflow.add_edge("tools", "agent")
     graph_workflow.add_edge(START, "agent")
     graph_workflow.add_conditional_edges("agent", should_continue)
+
     agent = graph_workflow.compile()
     return agent
 
